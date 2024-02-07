@@ -1,0 +1,37 @@
+MODELLO CONCETTUALE - DATABASE: GESTIONE_LIBRERIA
+Per la realizzazione del database del seguente sito, individuiamo 3 tabelle.
+
+- Libro (book)
+- Autore (author)
+- Utente (user)
+
+Le prime 2 tabelle sono in relazione fra loro seguendo il modello E/R (entity relationship).
+La tabella user invece è utile per archiviare i dati per l'accesso al sito.
+Molte funzionalità del sito sono bloccate se non viene eseguito l'accesso e/o la registrazione.
+
+    (book)
+    - id_libro (PK)
+    - titolo
+    - anno_pubblicazione
+    - genere
+
+        N
+        |
+        |
+        |
+        | un autore può                                       (user)
+        | *pubblicare*                                        - id_utente (PK)
+        |  più libri                                          - age
+        |                                                     - email 
+        1                                                     - city
+    (author)                                                  - password
+    - id_autore (PK)
+    - nome
+    - cognome
+    - pseudonimo
+
+La chiave esterna FK che mette in relazione le tabelle 'book' e 'author' è "id_libro".
+
+Quindi un utente dopo aver eseguito la registrazione, memorizza i dati nella tabella user.
+I libri invece vengono memorizzati in book in relazione con author che memorizza i dettagli dell'autore del libro.
+

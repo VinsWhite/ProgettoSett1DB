@@ -1,0 +1,11 @@
+NOTE AGGIUNTIVE CON SPIEGAZIONE PROGETTO
+Il progetto di base richiedeva la creazione di un sito con le operazioni CRUD di base nella gestione di una libreria virtuale
+con un'unica tabella "libri".
+Nel mio progetto ho inserito 3 tabelle (vedi modelloconcenttuale.txt).
+Per poter cancellare, modificare e aggiungere 1 o più libri (con autori) bisognerà prima fare l'accesso.
+
+Sono state inserite anche la validazione del form (sia lato HTML che lato PHP), che una minima protezione contro
+il fenomeno dell'sql injection.
+
+Inoltre ho suddiviso il progetto in un più file parziali per una migliore lettura e organizzazione del codice. 
+
