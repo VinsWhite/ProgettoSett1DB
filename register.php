@@ -1,4 +1,8 @@
 <?php 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+    require 'vendor/autoload.php';
 
     if(isset($_SESSION['email']) && isset($_SESSION['password'])){
         exit(header('Location: http://localhost/progetti%20settimanali/ProgettoSett1DB/index.php'));
@@ -52,6 +56,38 @@
             // Eseguiamo la query
             if ($stmt->execute()) {
                 echo "Registrazione completata! Puoi eseguire l'accesso ora";
+
+                // Invio dell'email in caso di registrazione completata
+                $mail = new PHPMailer(true);
+
+                try {
+                    //Server settings
+                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = 'USERNAME';                    
+                    $mail->Password   = 'PASS';                               //SMTP password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    $mail->Port       = 2525;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                    //Recipients
+                    $mail->setFrom('admin@example.com', 'Mailer');
+                    $mail->addAddress('$email', 'Utente');    
+                    $mail->addReplyTo('admin@example.com', 'Information');
+
+
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'Grazie per aver effettuato la registrazione!';
+                    $mail->Body    = 'Ti aspettiamo nel nostro sito di libreria più famoso al mondo!';
+
+                    $mail->send();
+                    echo 'Message has been sent';
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+
             } else {
                 echo "Errore durante la registrazione. Riprova per favore " . $stmt->error;
             }
